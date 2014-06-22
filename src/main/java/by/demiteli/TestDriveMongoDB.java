@@ -2,9 +2,9 @@ package by.demiteli;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import org.apache.log4j.Logger;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -16,6 +16,8 @@ public class TestDriveMongoDB extends DAOImpl {
     public static void main(String [] args) throws UnknownHostException {
 
     DAO mongoDBTest = new DAOImpl();
+
+    final Logger logger = Logger.getLogger(TestDriveMongoDB.class.getName());
 
     mongoDBTest.connectToDB("testDriveMongo");
 
@@ -36,25 +38,25 @@ public class TestDriveMongoDB extends DAOImpl {
     mongoDBTest.insertDocument("wildAnimals", new BasicDBObject("name", "Aliphant").append("color", "gray")
                                 .append("weight", 2555));
 
-    System.out.println("Data base has following collections:");
+    logger.info("Data base has following collections:");
     Set<String> allClasses = mongoDBTest.getNamesOfCollections();
         Iterator iterator = allClasses.iterator();
         while (iterator.hasNext())
-            System.out.println(iterator.next());
-            System.out.println();
+            logger.info(iterator.next());
+            logger.info("");
 
     mongoDBTest.removeDocument("pets", new BasicDBObject("name", "Rex"));
 
-    System.out.println("Collection pets has following documets:");
+    logger.info("Collection pets has following documets:");
     mongoDBTest.printAllDocuments("pets");
-    System.out.println();
+    logger.info("");
 
-    System.out.println("The first document of collection pets is:");
-    System.out.println(mongoDBTest.findFirstDocument("pets"));
-    System.out.println();
+    logger.info("The first document of collection pets is:");
+    logger.info(mongoDBTest.findFirstDocument("pets"));
+    logger.info("");
 
-    System.out.println("Seeking document is:");
-    System.out.println(mongoDBTest.findDocuments("wildAnimals", new BasicDBObject("weight", new BasicDBObject("$gt", 1000))));
+    logger.info("Seeking document is:");
+    logger.info(mongoDBTest.findDocuments("wildAnimals", new BasicDBObject("weight", new BasicDBObject("$gt", 1000))));
 
     }
 }

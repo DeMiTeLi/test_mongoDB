@@ -76,16 +76,17 @@ public class DAOImpl implements DAO {
         }
 
     public List<DBObject> findDocuments(String collName, BasicDBObject query){
-    List<DBObject> documents = new ArrayList<DBObject>();
-    cursor = getCollection(collName).find(query);
-        try{
-            while (cursor.hasNext())
-                documents.add(cursor.next());
-        } finally {
-            cursor.close();
-        }
 
-        return documents;
+        List<DBObject> documents = new ArrayList<DBObject>();
+        cursor = getCollection(collName).find(query);
+            try{
+                while (cursor.hasNext())
+                    documents.add(cursor.next());
+            } finally {
+                cursor.close();
+            }
+
+            return documents;
     }
 
     public void dropDataBase(){

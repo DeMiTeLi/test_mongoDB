@@ -5,7 +5,6 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 

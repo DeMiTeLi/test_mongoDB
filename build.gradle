@@ -3,11 +3,13 @@ apply plugin: 'java'
 jar.baseName 'Test-Mongo'
 
 repositories {
+
     mavenCentral()
 }
 
 dependencies {
+
     testCompile 'junit:junit:4.10'
 	compile 'org.mongodb:mongo-java-driver:2.12.2'
-
+    compile 'log4j:log4j:1.2.17'
 }
