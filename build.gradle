@@ -8,6 +8,6 @@ repositories {
 
 dependencies {
     testCompile 'junit:junit:4.10'
-	Compile 'org.mongodb:mongo-java-driver:2.12.2'
+	compile 'org.mongodb:mongo-java-driver:2.12.2'
 
 }

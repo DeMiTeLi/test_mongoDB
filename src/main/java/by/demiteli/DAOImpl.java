@@ -25,7 +25,7 @@ public class DAOImpl implements DAO {
     }
 
     @Override
-    public Set<String> getNamesOfCollection(){
+    public Set<String> getNamesOfCollections(){
 
     Set<String> colls = db.getCollectionNames();
 
@@ -33,9 +33,9 @@ public class DAOImpl implements DAO {
     }
 
     @Override
-     public void creteCollection(String collName, BasicDBObject document){
+     public void createNewCollection(String collName){
 
-        db.createCollection(collName, document);
+        db.createCollection(collName, null);
     }
 
     @Override
@@ -45,15 +45,15 @@ public class DAOImpl implements DAO {
     }
 
     @Override
-    public void insertDocument(String collectionName, BasicDBObject document){
+    public void insertDocument(String collectionName, BasicDBObject documentContent){
 
-        getCollection(collectionName).insert(document);
+        getCollection(collectionName).insert(documentContent);
     }
 
     @Override
-    public void removeElement(String collectionName, BasicDBObject document){
+    public void removeDocument(String collectionName, BasicDBObject markForDeleting){
 
-        getCollection(collectionName).remove(document);
+        getCollection(collectionName).remove(markForDeleting);
     }
 
     @Override
@@ -62,19 +62,17 @@ public class DAOImpl implements DAO {
         return getCollection(collName).findOne();
     }
 
-    public List<DBObject> getAllDocuments(String collName){
+    public void printAllDocuments(String collName){
 
-        List<DBObject> Documents = new ArrayList<DBObject>();
         DBCollection coll = getCollection(collName);
         cursor = coll.find();
         try{
         while (cursor.hasNext())
-            Documents.add(cursor.next());
+            System.out.println(cursor.next());
         } finally{
             cursor.close();
             }
 
-        return Documents;
         }
 
     public List<DBObject> findDocuments(String collName, BasicDBObject query){
@@ -88,6 +86,10 @@ public class DAOImpl implements DAO {
         }
 
         return documents;
+    }
+
+    public void dropDataBase(){
+     db.dropDatabase();
     }
 
 }

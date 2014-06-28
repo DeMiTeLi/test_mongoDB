@@ -5,6 +5,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,19 +16,21 @@ public interface DAO {
 
     void connectToDB(String dbName)throws UnknownHostException;
 
-    Set<String> getNamesOfCollection();
+    Set<String> getNamesOfCollections();
 
-    void creteCollection(String collName, BasicDBObject document);
+    void createNewCollection(String collName);
 
     DBCollection getCollection(String collName);
 
     void insertDocument(String collectionName, BasicDBObject document);
 
-    void removeElement(String collectionName, BasicDBObject document);
+    void removeDocument(String collectionName, BasicDBObject markForDeleting);
 
     DBObject findFirstDocument(String collName);
 
-    List<DBObject> getAllDocuments(String collName);
+    void printAllDocuments(String collName);
 
     List<DBObject> findDocuments(String collName, BasicDBObject query);
+
+    void dropDataBase();
 }
