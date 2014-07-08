@@ -27,7 +27,16 @@ public class HumanUtil implements HumanDAO {
             System.out.println("Cannot to connect to database!");
             e.printStackTrace();}
 
-        humans = db.getCollection("humans");
+      /* humans = db.getCollection("humans");
+        humans.insert(new BasicDBObject("test","test"));  */
+
+    }
+
+    @Override
+    public void createNewCollection(){
+
+        db.createCollection("humans", null);
+        db.getCollection("humans").insert(new BasicDBObject("test", "test"));
     }
 
     @Override
@@ -74,24 +83,31 @@ public class HumanUtil implements HumanDAO {
     @Override
     public void save(Human human) {
 
-        Gson gson = new Gson();
-        BasicDBObject obj = (BasicDBObject) JSON.parse(gson.toJson(human));
+       HumanUtil hu = new HumanUtil();
+        boolean check = hu.checkUnique(human);
 
-        humans.insert(obj);
+        if (check){
+            Gson gson = new Gson();
+            BasicDBObject obj = (BasicDBObject) JSON.parse(gson.toJson(human));
+
+            humans.insert(obj);
+        }
     }
 
     @Override
-    public boolean checkUnique(Human human){
+    public boolean checkUnique(Human insertingHuman){
 
+        humans = db.getCollection("humans");
         boolean unique = true;
+        int counter = 0;
 
-        BasicDBObject query = new BasicDBObject("name", human.getName());
+        BasicDBObject query = new BasicDBObject("name", insertingHuman.getName());
 
         cursor = humans.find(query);
         try{
-            DBObject dbo = cursor.next();
-            human = (new Gson()).fromJson(dbo.toString(), Human.class);
-            if (human.getName())
+            while (cursor.hasNext())
+                counter++;
+                if (counter>0) unique = false;
         } finally {
             cursor.close();
         }
@@ -99,6 +115,11 @@ public class HumanUtil implements HumanDAO {
         return unique;
     }
 
+    @Override
+    public void dropDB(){
+
+        db.dropDatabase();
+
     }
-    return;
+
 }

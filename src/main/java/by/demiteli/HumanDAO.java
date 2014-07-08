@@ -14,4 +14,6 @@ public interface HumanDAO {
     public void remove(String id);
     public void save(Human human);
     public boolean checkUnique(Human human);
+    public void dropDB();
+    void createNewCollection();
 }

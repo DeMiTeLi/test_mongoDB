@@ -11,8 +11,7 @@ import java.util.Set;
 /**
  * @author Dzmitry Varabei
  */
-/*
-public class TestDriveMongoDB extends DAOImpl {
+/*public class TestDriveMongoDB extends DAOImpl {
 
     public static void main(String [] args) throws UnknownHostException {
 
@@ -61,4 +60,4 @@ public class TestDriveMongoDB extends DAOImpl {
 
     }
 }
-   */
+  */

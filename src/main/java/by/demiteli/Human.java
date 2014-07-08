@@ -1,7 +1,6 @@
 package by.demiteli;
 
 import java.io.Serializable;
-import java.net.UnknownHostException;
 
 /**
  * @author Dzmitry Varabei
