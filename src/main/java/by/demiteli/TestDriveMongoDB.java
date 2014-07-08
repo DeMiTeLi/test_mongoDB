@@ -1,4 +1,4 @@
-package by.demiteli;
+/*package by.demiteli;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -11,6 +11,7 @@ import java.util.Set;
 /**
  * @author Dzmitry Varabei
  */
+/*
 public class TestDriveMongoDB extends DAOImpl {
 
     public static void main(String [] args) throws UnknownHostException {
@@ -60,3 +61,4 @@ public class TestDriveMongoDB extends DAOImpl {
 
     }
 }
+   */
