@@ -13,4 +13,5 @@ public interface HumanDAO {
     List<Human> readAll();
     public void remove(String id);
     public void save(Human human);
+    public boolean checkUnique(Human human);
 }

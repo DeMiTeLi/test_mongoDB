@@ -1,69 +1,64 @@
 package by.demiteli;
 
-import com.mongodb.*;
-
+import java.io.Serializable;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Dzmitry Varabei
  */
-public class Human implements HumanDAO {
+public class Human implements Serializable {
 
-    DB db = null;
-    DBCursor cursor= null;
-    DBCollection humans = null;
-    Human human= null;
+    private static final long serialVerionUID = 1L;
+    private String name, sex, job, city, mobile;
+    private int age;
 
-    @Override
-    public void connectToDB() throws UnknownHostException {
-        try{
-            MongoClient client = new MongoClient("localhost", 27017);
-            this.db = client.getDB("ImageStorageDB");
-        } catch (UnknownHostException e){
-            System.out.println("Cannot to connect to database!");
-            e.printStackTrace();}
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public Human read(String id) {
-
-            BasicDBObject query = new BasicDBObject("_id", "id");
-
-            cursor = humans.find(query);
-            try{
-                human = (Human) cursor.next();
-            } finally {
-                cursor.close();
-            }
-
-            return human;
-        }
-
-    @Override
-    public List<Human> readAll() {
-
-        List<Human> hums = new ArrayList<Human>();
-        cursor = humans.find();
-        try{
-            while (cursor.hasNext())
-                hums.add((Human)cursor.next());
-        } finally{
-            cursor.close();
-        }
-        return hums;
+    public void setName(String name) {
+        this.name = name;
     }
 
-
-    @Override
-    public void remove(String id) {
-        humans.remove(new BasicDBObject("_id", id));
+    public String getSex() {
+        return sex;
     }
 
-    @Override
-    public void save(Human human) {
-
-            humans.insert((List<DBObject>) human);
+    public void setSex(String sex) {
+        this.sex = sex;
     }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
 }
+
