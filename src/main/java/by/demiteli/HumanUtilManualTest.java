@@ -1,21 +1,27 @@
 package by.demiteli;
 
+import by.demiteli.exceptions.InvalidHumanName;
+import org.apache.log4j.Logger;
+
 import java.net.UnknownHostException;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Dzmitry Varabei
  */
 public class HumanUtilManualTest {
 
-    public static void main(String [] args) throws UnknownHostException {
-
+    public static void main(String [] args) throws UnknownHostException, InvalidHumanName {
 
     HumanUtil humanUtil = new HumanUtil();
-
+    final Logger logger = Logger.getLogger(HumanUtilManualTest.class.getName());
 
         humanUtil.connectToDB();
         humanUtil.dropDB();
         humanUtil.createNewCollection();
+
+        //Testing save method
 
     Human human1 = new Human();
         human1.setName("Piter");
@@ -26,7 +32,7 @@ public class HumanUtilManualTest {
         human1.setSex("male");
 
     Human human2 = new Human();
-        human2.setName("Piter");
+        human2.setName("Piter1");
         human2.setAge(22);
         human2.setCity("Paris");
         human2.setJob("Engineer");
@@ -41,8 +47,31 @@ public class HumanUtilManualTest {
         human3.setMobile("+375294561264");
         human3.setSex("female");
 
-    humanUtil.save(human1);
-    humanUtil.save(human2);
-    humanUtil.save(human3);
+    try{
+        humanUtil.save(human1);
+        humanUtil.save(human2);
+        humanUtil.save(human3);
+    } catch (InvalidHumanName e){
+        e.getMessage(); e.printStackTrace();
+    }
+        //Testing read method
+
+     Human hum = humanUtil.read("Sara");
+             logger.info("Name: "+hum.getName() + ", Age: "+ hum.getAge() + ", City: " + hum.getCity() + ", Job: " + hum.getJob() +
+                        ", Mobile: " + hum.getMobile() + ", Sex: " + hum.getSex() );
+             logger.info("");
+
+        //Testing readAll method
+
+        List<Human> humList = humanUtil.readAll();
+            if (humList.size()==3) logger.info("All humans was read");
+            logger.info("");
+
+        //Testing readAll method
+
+        int unitilRemoving = humList.size();
+        humanUtil.remove("Piter1");
+        int afterRemoving = humanUtil.readAll().size();
+        if (unitilRemoving!=afterRemoving) logger.info("Removing sucsess");
     }
 }
